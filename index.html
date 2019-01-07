@@ -1212,8 +1212,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 6dcb46ba8cae3704b42c05bcd8578c92d239786a" name="generator">
+  <meta content="Bikeshed version f9fa604b61e5fc96edf5cdebd2c04e0e69b33a7b" name="generator">
   <link href="https://wicg.github.io/media-capabilities/" rel="canonical">
+  <meta content="219ea431fded62a68fdf6308a958fcebc02a3113" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1460,7 +1461,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Media Capabilities</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2019-01-03">3 January 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2019-01-07">7 January 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1531,25 +1532,35 @@ based on the device’s display.</p>
         <li><a href="#is-encrypted-decode-supported"><span class="secno">2.3.3</span> <span class="content"> <span>Check Encrypted Decoding Support</span> </span></a>
        </ol>
       <li><a href="#navigators-extensions"><span class="secno">2.4</span> <span class="content">Navigator and WorkerNavigator extension</span></a>
-      <li><a href="#media-capabilities-interface"><span class="secno">2.5</span> <span class="content">Media Capabilities Interface</span></a>
      </ol>
     <li>
      <a href="#display-capabilities"><span class="secno">3</span> <span class="content">Display Capabilities</span></a>
      <ol class="toc">
-      <li><a href="#screen-luminance"><span class="secno">3.1</span> <span class="content">Screen Luminance</span></a>
-      <li><a href="#color-gamut"><span class="secno">3.2</span> <span class="content">Screen Color Gamut</span></a>
-      <li><a href="#screen-extension"><span class="secno">3.3</span> <span class="content">Screen extension</span></a>
+      <li><a href="#screen-color-gamut"><span class="secno">3.1</span> <span class="content">ScreenColorGamut</span></a>
+      <li><a href="#transfer-function"><span class="secno">3.2</span> <span class="content">TransferFunction</span></a>
+      <li><a href="#display-configuration"><span class="secno">3.3</span> <span class="content">DisplayConfiguration</span></a>
+      <li><a href="#media-capabilities-display-info"><span class="secno">3.4</span> <span class="content">DisplayCapabilitiesInfo</span></a>
+      <li>
+       <a href="#displaycapabilities-algorithms"><span class="secno">3.5</span> <span class="content">Algorithms</span></a>
+       <ol class="toc">
+        <li><a href="#create-a-displaycapabilitiesinfo"><span class="secno">3.5.1</span> <span class="content">Create a DisplayCapabilitiesInfo</span></a>
+       </ol>
+     </ol>
+    <li><a href="#media-capabilities-interface"><span class="secno">4</span> <span class="content">Media Capabilities Interface</span></a>
+    <li>
+     <a href="#security-privacy-considerations"><span class="secno">5</span> <span class="content"> Security and Privacy Considerations </span></a>
+     <ol class="toc">
+      <li><a href="#decoding-encoding-fingerprinting"><span class="secno">5.1</span> <span class="content"> Decoding/Encoding and Fingerprinting </span></a>
+      <li><a href="#display-fingerprinting"><span class="secno">5.2</span> <span class="content">Display and Fingerprinting</span></a>
      </ol>
     <li>
-     <a href="#security-privacy-considerations"><span class="secno">4</span> <span class="content"> Security and Privacy Considerations </span></a>
+     <a href="#examples"><span class="secno">6</span> <span class="content">Examples</span></a>
      <ol class="toc">
-      <li><a href="#decoding-encoding-fingerprinting"><span class="secno">4.1</span> <span class="content"> Decoding/Encoding and Fingerprinting </span></a>
-      <li><a href="#display-fingerprinting"><span class="secno">4.2</span> <span class="content">Display and Fingerprinting</span></a>
-     </ol>
-    <li>
-     <a href="#examples"><span class="secno">5</span> <span class="content">Examples</span></a>
-     <ol class="toc">
-      <li><a href="#example1"><span class="secno">5.1</span> <span class="content">Query recording capabilities with <code class="idl"><span>encodingInfo()</span></code></span></a>
+      <li>
+       <a href="#example1"><span class="secno">6.1</span> <span class="content">Query recording capabilities with <code class="idl"><span>encodingInfo()</span></code></span></a>
+       <ol class="toc">
+        <li><a href="#query-display-capabilities"><span class="secno">6.1.1</span> <span class="content">Query display capabilities with displayInfo()</span></a>
+       </ol>
      </ol>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
@@ -1946,11 +1957,89 @@ based on the device’s display.</p>
 </pre>
      </section>
      <section>
-      <h3 class="heading settled" data-level="2.5" id="media-capabilities-interface"><span class="secno">2.5. </span><span class="content">Media Capabilities Interface</span><a class="self-link" href="#media-capabilities-interface"></a></h3>
+      <h2 class="heading settled" data-level="3" id="display-capabilities"><span class="secno">3. </span><span class="content">Display Capabilities</span><a class="self-link" href="#display-capabilities"></a></h2>
+      <p class="advisement"> This section is still Work In Progress and has no shipping implementation.
+    Please look into it in details before implementing it. </p>
+      <section>
+       <h3 class="heading settled" data-level="3.1" id="screen-color-gamut"><span class="secno">3.1. </span><span class="content">ScreenColorGamut</span><a class="self-link" href="#screen-color-gamut"></a></h3>
+<pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-screencolorgamut"><code><c- g>ScreenColorGamut</c-></code></dfn> {
+  <a class="idl-code" data-link-type="enum-value" href="#dom-screencolorgamut-srgb" id="ref-for-dom-screencolorgamut-srgb"><c- s>"srgb"</c-></a>,
+  <a class="idl-code" data-link-type="enum-value" href="#dom-screencolorgamut-p3" id="ref-for-dom-screencolorgamut-p3"><c- s>"p3"</c-></a>,
+  <a class="idl-code" data-link-type="enum-value" href="#dom-screencolorgamut-rec2020" id="ref-for-dom-screencolorgamut-rec2020"><c- s>"rec2020"</c-></a>,
+};
+</pre>
+       <p>The <code class="idl"><a data-link-type="idl" href="#enumdef-screencolorgamut" id="ref-for-enumdef-screencolorgamut">ScreenColorGamut</a></code> has the same meaning as the <a data-link-type="biblio" href="#biblio-mediaqueries-4">Media Queries Level 4</a> <a href="https://www.w3.org/TR/mediaqueries-4/#color-gamut">§color-gamut</a> media query, and describes the approximate range of color supported by the UA and output device.</p>
+       <div class="note" role="note"> Note: As in <a href="https://www.w3.org/TR/mediaqueries-4/#color-gamut">Media Queries Level 4 §color-gamut</a>, the values returned here are approximate. Display hardware may advertise support for a certain color gamut yet only render in a smaller range. </div>
+       <p>The <code class="idl"><a data-link-type="idl" href="#enumdef-screencolorgamut" id="ref-for-enumdef-screencolorgamut①">ScreenColorGamut</a></code> values are:</p>
+       <ul>
+        <li data-md>
+         <p><dfn class="dfn-paneled idl-code" data-dfn-for="ScreenColorGamut" data-dfn-type="enum-value" data-export id="dom-screencolorgamut-srgb"><code>srgb</code></dfn>, representing the <a data-link-type="biblio" href="#biblio-srgb">[sRGB]</a> color gamut.</p>
+        <li data-md>
+         <p><dfn class="dfn-paneled idl-code" data-dfn-for="ScreenColorGamut" data-dfn-type="enum-value" data-export id="dom-screencolorgamut-p3"><code>p3</code></dfn>, representing the <a data-link-type="biblio" href="#biblio-dci-p3">[DCI-P3]</a> color gamut. This color gamut includes the <code class="idl"><a data-link-type="idl" href="#dom-screencolorgamut-srgb" id="ref-for-dom-screencolorgamut-srgb①">srgb</a></code> gamut.</p>
+        <li data-md>
+         <p><dfn class="dfn-paneled idl-code" data-dfn-for="ScreenColorGamut" data-dfn-type="enum-value" data-export id="dom-screencolorgamut-rec2020"><code>rec2020</code></dfn>, representing the <a data-link-type="biblio" href="#biblio-rec2020">[Rec.2020]</a> color gamut. This color gamut includes the <code class="idl"><a data-link-type="idl" href="#dom-screencolorgamut-p3" id="ref-for-dom-screencolorgamut-p3①">p3</a></code> gamut.</p>
+       </ul>
+      </section>
+      <section>
+       <h3 class="heading settled" data-level="3.2" id="transfer-function"><span class="secno">3.2. </span><span class="content">TransferFunction</span><a class="self-link" href="#transfer-function"></a></h3>
+<pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-transferfunction"><code><c- g>TransferFunction</c-></code></dfn> {
+    <a class="idl-code" data-link-type="enum-value" href="#dom-transferfunction-srgb" id="ref-for-dom-transferfunction-srgb"><c- s>"srgb"</c-></a>,
+    <a class="idl-code" data-link-type="enum-value" href="#dom-transferfunction-pq" id="ref-for-dom-transferfunction-pq"><c- s>"pq"</c-></a>,
+    <a class="idl-code" data-link-type="enum-value" href="#dom-transferfunction-hlg" id="ref-for-dom-transferfunction-hlg"><c- s>"hlg"</c-></a>,
+};
+</pre>
+       <p>The <code class="idl"><a data-link-type="idl" href="#enumdef-transferfunction" id="ref-for-enumdef-transferfunction">TransferFunction</a></code> represents an electro-optical algorithm used to map the source colors in the decoded media into the colors displayed on the output device.</p>
+       <p>The <code class="idl"><a data-link-type="idl" href="#enumdef-transferfunction" id="ref-for-enumdef-transferfunction①">TransferFunction</a></code> values are:</p>
+       <ul>
+        <li data-md>
+         <p><dfn class="dfn-paneled idl-code" data-dfn-for="TransferFunction" data-dfn-type="enum-value" data-export id="dom-transferfunction-srgb"><code>srgb</code></dfn>, representing the transfer function defined by <a data-link-type="biblio" href="#biblio-srgb">[sRGB]</a>.</p>
+        <li data-md>
+         <p><dfn class="dfn-paneled idl-code" data-dfn-for="TransferFunction" data-dfn-type="enum-value" data-export id="dom-transferfunction-pq"><code>pq</code></dfn>, representing the "Perceptual Quantizer" transfer function defined by <a data-link-type="biblio" href="#biblio-smpte-st-2084">[SMPTE-ST-2084]</a>.</p>
+        <li data-md>
+         <p><dfn class="dfn-paneled idl-code" data-dfn-for="TransferFunction" data-dfn-type="enum-value" data-export id="dom-transferfunction-hlg"><code>hlg</code></dfn>, representing the "Hybrid Log Gamma" transfer function defined by <a data-link-type="biblio" href="#biblio-bt2100">[BT.2100]</a>.</p>
+       </ul>
+      </section>
+      <section>
+       <h3 class="heading settled" data-level="3.3" id="display-configuration"><span class="secno">3.3. </span><span class="content">DisplayConfiguration</span><a class="self-link" href="#display-configuration"></a></h3>
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-displayconfiguration"><code><c- g>DisplayConfiguration</c-></code></dfn> {
+    <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-screencolorgamut" id="ref-for-enumdef-screencolorgamut②"><c- n>ScreenColorGamut</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="ScreenColorGamut " href="#dom-displayconfiguration-colorgamut" id="ref-for-dom-displayconfiguration-colorgamut"><c- g>colorGamut</c-></a>;
+    <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-transferfunction" id="ref-for-enumdef-transferfunction②"><c- n>TransferFunction</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="TransferFunction " href="#dom-displayconfiguration-transferfunction" id="ref-for-dom-displayconfiguration-transferfunction"><c- g>transferFunction</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned short " href="#dom-displayconfiguration-colordepth" id="ref-for-dom-displayconfiguration-colordepth"><c- g>colorDepth</c-></a>;
+};
+</pre>
+       <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="DisplayConfiguration" data-dfn-type="dict-member" data-export id="dom-displayconfiguration-colorgamut"><code>colorGamut</code></dfn> member represents the <code class="idl"><a data-link-type="idl" href="#enumdef-screencolorgamut" id="ref-for-enumdef-screencolorgamut③">ScreenColorGamut</a></code> capabilities of the output device.</p>
+       <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="DisplayConfiguration" data-dfn-type="dict-member" data-export id="dom-displayconfiguration-transferfunction"><code>transferFunction</code></dfn> member represents the <code class="idl"><a data-link-type="idl" href="#enumdef-transferfunction" id="ref-for-enumdef-transferfunction③">TransferFunction</a></code> used to map media colors into output device colors.</p>
+       <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="DisplayConfiguration" data-dfn-type="dict-member" data-export id="dom-displayconfiguration-colordepth"><code>colorDepth</code></dfn> represents the number of bits used to represent each color component.</p>
+       <div class="note" role="note">Note: For "32-bit RGBA" color values, each of the four components is represented by 8-bits of data, so the <code class="idl"><a data-link-type="idl" href="#dom-displayconfiguration-colordepth" id="ref-for-dom-displayconfiguration-colordepth①">colorDepth</a></code> would be set to `8`. For HDR content authored as "10-bit color"—meaning 10-bits per color component—<code class="idl"><a data-link-type="idl" href="#dom-displayconfiguration-colordepth" id="ref-for-dom-displayconfiguration-colordepth②">colorDepth</a></code> would be set to `10`.</div>
+       <h3 class="heading settled" data-level="3.4" id="media-capabilities-display-info"><span class="secno">3.4. </span><span class="content">DisplayCapabilitiesInfo</span><a class="self-link" href="#media-capabilities-display-info"></a></h3>
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-displaycapabilitiesinfo"><code><c- g>DisplayCapabilitiesInfo</c-></code></dfn> {
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③"><c- b>boolean</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="boolean " href="#dom-displaycapabilitiesinfo-supported" id="ref-for-dom-displaycapabilitiesinfo-supported"><c- g>supported</c-></a>;
+};
+</pre>
+       <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="DisplayCapabilitiesInfo" data-dfn-type="dict-member" data-export id="dom-displaycapabilitiesinfo-supported"><code>supported</code></dfn> member represents whether a particulation <code class="idl"><a data-link-type="idl" href="#dictdef-displayconfiguration" id="ref-for-dictdef-displayconfiguration">DisplayConfiguration</a></code> is supported by the user agent.</p>
+      </section>
+      <section>
+       <h3 class="heading settled" data-level="3.5" id="displaycapabilities-algorithms"><span class="secno">3.5. </span><span class="content">Algorithms</span><a class="self-link" href="#displaycapabilities-algorithms"></a></h3>
+       <h4 class="heading settled" data-level="3.5.1" id="create-a-displaycapabilitiesinfo"><span class="secno">3.5.1. </span><span class="content">Create a DisplayCapabilitiesInfo</span><a class="self-link" href="#create-a-displaycapabilitiesinfo"></a></h4>
+       <p>Given a <code class="idl"><a data-link-type="idl" href="#dictdef-displayconfiguration" id="ref-for-dictdef-displayconfiguration①">DisplayConfiguration</a></code>, this algorithm returns a <code class="idl"><a data-link-type="idl" href="#dictdef-displaycapabilitiesinfo" id="ref-for-dictdef-displaycapabilitiesinfo">DisplayCapabilitiesInfo</a></code>. The following steps are run:</p>
+       <ol>
+        <li data-md>
+         <p>Let *info* be a new <code class="idl"><a data-link-type="idl" href="#dictdef-displaycapabilitiesinfo" id="ref-for-dictdef-displaycapabilitiesinfo①">DisplayCapabilitiesInfo</a></code>.</p>
+        <li data-md>
+         <p>If the user agent is able to display media onto the output device with the parameters represented by *configuration*, set *info*'s <code class="idl"><a data-link-type="idl" href="#dom-displaycapabilitiesinfo-supported" id="ref-for-dom-displaycapabilitiesinfo-supported①">supported</a></code> property to `true`, Otherwise, set it to `false`.</p>
+        <li data-md>
+         <p>Return *info*.</p>
+       </ol>
+       <div class="note" role="note"> Note: The user agent may take into account properties and capabilities of the user’s system, including those of the system’s screen. These properties and capabilities may include, but are not limited to, the available luminance of the screen. </div>
+      </section>
+     </section>
+     <section>
+      <h2 class="heading settled" data-level="4" id="media-capabilities-interface"><span class="secno">4. </span><span class="content">Media Capabilities Interface</span><a class="self-link" href="#media-capabilities-interface"></a></h2>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->, <c- n>Worker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="mediacapabilities"><code><c- g>MediaCapabilities</c-></code></dfn> {
   [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#NewObject" id="ref-for-NewObject"><c- g>NewObject</c-></a>] <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-mediacapabilitiesdecodinginfo" id="ref-for-dictdef-mediacapabilitiesdecodinginfo②"><c- n>MediaCapabilitiesDecodingInfo</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="MediaCapabilities" data-dfn-type="method" data-export data-lt="decodingInfo(configuration)" id="dom-mediacapabilities-decodinginfo"><code><c- g>decodingInfo</c-></code></dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-mediadecodingconfiguration" id="ref-for-dictdef-mediadecodingconfiguration⑦"><c- n>MediaDecodingConfiguration</c-></a> <dfn class="idl-code" data-dfn-for="MediaCapabilities/decodingInfo(configuration)" data-dfn-type="argument" data-export id="dom-mediacapabilities-decodinginfo-configuration-configuration"><code><c- g>configuration</c-></code><a class="self-link" href="#dom-mediacapabilities-decodinginfo-configuration-configuration"></a></dfn>);
   [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#NewObject" id="ref-for-NewObject①"><c- g>NewObject</c-></a>] <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-mediacapabilitiesinfo" id="ref-for-dictdef-mediacapabilitiesinfo⑥"><c- n>MediaCapabilitiesInfo</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="MediaCapabilities" data-dfn-type="method" data-export data-lt="encodingInfo(configuration)" id="dom-mediacapabilities-encodinginfo"><code><c- g>encodingInfo</c-></code></dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-mediaencodingconfiguration" id="ref-for-dictdef-mediaencodingconfiguration④"><c- n>MediaEncodingConfiguration</c-></a> <dfn class="idl-code" data-dfn-for="MediaCapabilities/encodingInfo(configuration)" data-dfn-type="argument" data-export id="dom-mediacapabilities-encodinginfo-configuration-configuration"><code><c- g>configuration</c-></code><a class="self-link" href="#dom-mediacapabilities-encodinginfo-configuration-configuration"></a></dfn>);
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#NewObject" id="ref-for-NewObject②"><c- g>NewObject</c-></a>] <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-displaycapabilitiesinfo" id="ref-for-dictdef-displaycapabilitiesinfo②"><c- n>DisplayCapabilitiesInfo</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="MediaCapabilities" data-dfn-type="method" data-export data-lt="displayInfo(configuration)" id="dom-mediacapabilities-displayinfo"><code><c- g>displayInfo</c-></code></dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-displayconfiguration" id="ref-for-dictdef-displayconfiguration②"><c- n>DisplayConfiguration</c-></a> <dfn class="idl-code" data-dfn-for="MediaCapabilities/displayInfo(configuration)" data-dfn-type="argument" data-export id="dom-mediacapabilities-displayinfo-configuration-configuration"><code><c- g>configuration</c-></code><a class="self-link" href="#dom-mediacapabilities-displayinfo-configuration-configuration"></a></dfn>);
 };
 </pre>
       <p> The <code class="idl"><a data-link-type="idl" href="#dom-mediacapabilities-decodinginfo" id="ref-for-dom-mediacapabilities-decodinginfo">decodingInfo()</a></code> method method MUST run the following steps: </p>
@@ -1985,94 +2074,25 @@ based on the device’s display.</p>
        <li> Return <var>p</var>. 
       </ol>
       <p></p>
-     </section>
-    </section>
-    <section>
-     <h2 class="heading settled" data-level="3" id="display-capabilities"><span class="secno">3. </span><span class="content">Display Capabilities</span><a class="self-link" href="#display-capabilities"></a></h2>
-     <p class="advisement"> This section is still Work In Progress and has no shipping implementation.
-    Please look into it in details before implementing it. </p>
-     <section>
-      <h3 class="heading settled" data-level="3.1" id="screen-luminance"><span class="secno">3.1. </span><span class="content">Screen Luminance</span><a class="self-link" href="#screen-luminance"></a></h3>
-<pre class="idl highlight def"><c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="screenluminance"><code><c- g>ScreenLuminance</c-></code></dfn> {
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-double" id="ref-for-idl-double"><c- b>double</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="double" href="#dom-screenluminance-min" id="ref-for-dom-screenluminance-min"><c- g>min</c-></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-double" id="ref-for-idl-double①"><c- b>double</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="double" href="#dom-screenluminance-max" id="ref-for-dom-screenluminance-max"><c- g>max</c-></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-double" id="ref-for-idl-double②"><c- b>double</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="double" href="#dom-screenluminance-maxaverage" id="ref-for-dom-screenluminance-maxaverage"><c- g>maxAverage</c-></a>;
-};
-</pre>
-      <p> The <code class="idl"><a data-link-type="idl" href="#screenluminance" id="ref-for-screenluminance">ScreenLuminance</a></code> object represents the known luminance
-      characteristics of the screen. </p>
-      <p> The <dfn class="dfn-paneled idl-code" data-dfn-for="ScreenLuminance" data-dfn-type="attribute" data-export id="dom-screenluminance-min"><code>min</code></dfn> attribute MUST return
-      the minimal screen luminance that a pixel of the screen can emit in
-      candela per square metre. The minimal screen luminance is the luminance
-      used when showing the darkest color a pixel on the screen can display. </p>
-      <p> The <dfn class="dfn-paneled idl-code" data-dfn-for="ScreenLuminance" data-dfn-type="attribute" data-export id="dom-screenluminance-max"><code>max</code></dfn> attribute MUST return
-      the maximal screen luminance that a pixel of the screen can emit in
-      candela per square metre. The maximal screen luminance is the luminance
-      used when showing the whitest color a pixel on the screen can display. </p>
-      <p> The <dfn class="dfn-paneled idl-code" data-dfn-for="ScreenLuminance" data-dfn-type="attribute" data-export id="dom-screenluminance-maxaverage"><code>maxAverage</code></dfn> attribute MUST
-      return the maximal average screen luminance that the screen can emit in
-      candela per square metre. The maximal average screen luminance is the
-      maximal luminance value such as all the pixels of the screen emit the same
-      luminance. The value returned by <code class="idl"><a data-link-type="idl" href="#dom-screenluminance-maxaverage" id="ref-for-dom-screenluminance-maxaverage①">maxAverage</a></code> is
-      expected to be different from <code class="idl"><a data-link-type="idl" href="#dom-screenluminance-max" id="ref-for-dom-screenluminance-max①">max</a></code> as screens usually
-      can’t apply the maximal screen luminance to the entire panel. </p>
-     </section>
-     <section>
-      <h3 class="heading settled" data-level="3.2" id="color-gamut"><span class="secno">3.2. </span><span class="content">Screen Color Gamut</span><a class="self-link" href="#color-gamut"></a></h3>
-<pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-screencolorgamut"><code><c- g>ScreenColorGamut</c-></code></dfn> {
-  <a class="idl-code" data-link-type="enum-value" href="#dom-screencolorgamut-srgb" id="ref-for-dom-screencolorgamut-srgb"><c- s>"srgb"</c-></a>,
-  <a class="idl-code" data-link-type="enum-value" href="#dom-screencolorgamut-p3" id="ref-for-dom-screencolorgamut-p3"><c- s>"p3"</c-></a>,
-  <a class="idl-code" data-link-type="enum-value" href="#dom-screencolorgamut-rec2020" id="ref-for-dom-screencolorgamut-rec2020"><c- s>"rec2020"</c-></a>,
-};
-</pre>
-      <p> The <code class="idl"><a data-link-type="idl" href="#enumdef-screencolorgamut" id="ref-for-enumdef-screencolorgamut">ScreenColorGamut</a></code> represents the color gamut supported by a <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view/#screen" id="ref-for-screen">Screen</a></code>, that means the range of color that the screen can display. </p>
-      <p> The <code class="idl"><a data-link-type="idl" href="#enumdef-screencolorgamut" id="ref-for-enumdef-screencolorgamut①">ScreenColorGamut</a></code> values are: </p>
-      <ul>
-       <li> <dfn class="dfn-paneled idl-code" data-dfn-for="ScreenColorGamut" data-dfn-type="enum-value" data-export id="dom-screencolorgamut-srgb"><code>srgb</code></dfn>, it represents the <a data-link-type="biblio" href="#biblio-srgb">[sRGB]</a> color gamut. 
-       <li> <dfn class="dfn-paneled idl-code" data-dfn-for="ScreenColorGamut" data-dfn-type="enum-value" data-export id="dom-screencolorgamut-p3"><code>p3</code></dfn>, it represents the DCI
-          P3 Color Space color gamut. This color gamut includes the <code class="idl"><a data-link-type="idl" href="#dom-screencolorgamut-srgb" id="ref-for-dom-screencolorgamut-srgb①">srgb</a></code> gamut. 
-       <li> <dfn class="dfn-paneled idl-code" data-dfn-for="ScreenColorGamut" data-dfn-type="enum-value" data-export id="dom-screencolorgamut-rec2020"><code>rec2020</code></dfn>, it represents
-          the ITU-R Recommendation BT.2020 color gamut. This color gamut
-          includes the <code class="idl"><a data-link-type="idl" href="#dom-screencolorgamut-p3" id="ref-for-dom-screencolorgamut-p3①">p3</a></code> gamut. 
-       <p></p>
-      </ul>
-     </section>
-     <section>
-      <h3 class="heading settled" data-level="3.3" id="screen-extension"><span class="secno">3.3. </span><span class="content">Screen extension</span><a class="self-link" href="#screen-extension"></a></h3>
-      <p class="issue" id="issue-cd50b0fc"><a class="self-link" href="#issue-cd50b0fc"></a> Part of this section is 🐵 patching of the CSSOM View Module. <a href="https://github.com/WICG/media-capabilities/issues/4">Issue #4</a> is tracking merging the changes. This partial interface requires the <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view/#screen" id="ref-for-screen①">Screen</a></code> interface to become an <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget">EventTarget</a></code>. </p>
-<pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://drafts.csswg.org/cssom-view/#screen" id="ref-for-screen②"><c- g>Screen</c-></a> {
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-screencolorgamut" id="ref-for-enumdef-screencolorgamut②"><c- n>ScreenColorGamut</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ScreenColorGamut" href="#dom-screen-colorgamut" id="ref-for-dom-screen-colorgamut"><c- g>colorGamut</c-></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#screenluminance" id="ref-for-screenluminance①"><c- n>ScreenLuminance</c-></a>? <a class="idl-code" data-link-type="attribute" data-readonly data-type="ScreenLuminance?" href="#dom-screen-luminance" id="ref-for-dom-screen-luminance"><c- g>luminance</c-></a>;
-
-  <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler"><c- n>EventHandler</c-></a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-screen-onchange" id="ref-for-dom-screen-onchange"><c- g>onchange</c-></a>;
-};
-</pre>
-      <p> The <dfn class="dfn-paneled idl-code" data-dfn-for="Screen" data-dfn-type="attribute" data-export id="dom-screen-colorgamut"><code>colorGamut</code></dfn> attribute SHOULD return
-      the <code class="idl"><a data-link-type="idl" href="#enumdef-screencolorgamut" id="ref-for-enumdef-screencolorgamut③">ScreenColorGamut</a></code> approximately supported by the screen. In other
-      words, the screen does not need to fully support the given color gamut but
-      needs to be close enough. If the user agent does not know the color gamut
-      supported by the screen, if the supported color gamut is lower than <code class="idl"><a data-link-type="idl" href="#dom-screencolorgamut-srgb" id="ref-for-dom-screencolorgamut-srgb②">srgb</a></code>, or if the user agent does not want to expose
-      this information for privacy consideration, it SHOULD return <code class="idl"><a data-link-type="idl" href="#dom-screencolorgamut-srgb" id="ref-for-dom-screencolorgamut-srgb③">srgb</a></code> as a default value. The value returned by <code class="idl"><a data-link-type="idl" href="#dom-screen-colorgamut" id="ref-for-dom-screen-colorgamut①">colorGamut</a></code> MUST match the value returned by the <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/mediaqueries-4/#color-gamut" id="ref-for-color-gamut">color-gamut</a></code> CSS media query. </p>
-      <p> The <dfn class="dfn-paneled idl-code" data-dfn-for="Screen" data-dfn-type="attribute" data-export id="dom-screen-luminance"><code>luminance</code></dfn> attribute SHOULD return
-      a <code class="idl"><a data-link-type="idl" href="#screenluminance" id="ref-for-screenluminance②">ScreenLuminance</a></code> object that will expose the luminance
-      characteristics of the screen. If the user agent has no access to the
-      luminance characteristics of the screen, it MUST return <code>null</code>.
-      The user agent MAY also return <code>null</code> if it does not want to
-      expose the luminance information for privacy reasons. </p>
-      <p> The <dfn class="dfn-paneled idl-code" data-dfn-for="Screen" data-dfn-type="attribute" data-export id="dom-screen-onchange"><code>onchange</code></dfn> attribute is an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers" id="ref-for-event-handlers">event
-      handler</a> whose corresponding <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type" id="ref-for-event-handler-event-type">event handler event type</a> is <code>change</code>. </p>
-      <p> Whenever the user agent is aware that the state of the <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view/#screen" id="ref-for-screen③">Screen</a></code> object has changed, that is if one the value exposed on the <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view/#screen" id="ref-for-screen④">Screen</a></code> object or in an object exposed on the <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view/#screen" id="ref-for-screen⑤">Screen</a></code> object, it MUST
-      queue a task to <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire">fire an event</a> named <code>change</code> on <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view/#screen" id="ref-for-screen⑥">Screen</a></code>. </p>
+      <p>The <code class="idl"><a data-link-type="idl" href="#dom-mediacapabilities-displayinfo" id="ref-for-dom-mediacapabilities-displayinfo">displayInfo()</a></code> method MUST run the following steps:</p>
+      <ol>
+       <li data-md>
+        <p>Let *p* be a new Promise.</p>
+       <li data-md>
+        <p><a href="https://html.spec.whatwg.org/multipage/#in-parallel">In parallel</a>, run the <a href="#create-a-displaycapabilitiesinfo">Create a DisplayCapabilitiesInfo</a> algorithm with *configuration* and resolve *p* with the result.</p>
+       <li data-md>
+        <p>Return *p*.</p>
+      </ol>
      </section>
     </section>
     <section class="non-normative">
-     <h2 class="heading settled" data-level="4" id="security-privacy-considerations"><span class="secno">4. </span><span class="content"> Security and Privacy Considerations </span><a class="self-link" href="#security-privacy-considerations"></a></h2>
+     <h2 class="heading settled" data-level="5" id="security-privacy-considerations"><span class="secno">5. </span><span class="content"> Security and Privacy Considerations </span><a class="self-link" href="#security-privacy-considerations"></a></h2>
      <section>
       <p> This specification does not introduce any security-sensitive information
       or APIs but is provides an easier access to some information that can be
       used to fingerprint users. </p>
       <section>
-       <h3 class="heading settled" data-level="4.1" id="decoding-encoding-fingerprinting"><span class="secno">4.1. </span><span class="content"> Decoding/Encoding and Fingerprinting </span><a class="self-link" href="#decoding-encoding-fingerprinting"></a></h3>
+       <h3 class="heading settled" data-level="5.1" id="decoding-encoding-fingerprinting"><span class="secno">5.1. </span><span class="content"> Decoding/Encoding and Fingerprinting </span><a class="self-link" href="#decoding-encoding-fingerprinting"></a></h3>
        <p> The information exposed by the decoding/encoding capabilities can
         already be discovered via experimentation with the exception that the
         API will likely provide more accurate and consistent information. This
@@ -2090,7 +2110,7 @@ based on the device’s display.</p>
         degrade the user’s experience. </p>
       </section>
       <section>
-       <h3 class="heading settled" data-level="4.2" id="display-fingerprinting"><span class="secno">4.2. </span><span class="content">Display and Fingerprinting</span><a class="self-link" href="#display-fingerprinting"></a></h3>
+       <h3 class="heading settled" data-level="5.2" id="display-fingerprinting"><span class="secno">5.2. </span><span class="content">Display and Fingerprinting</span><a class="self-link" href="#display-fingerprinting"></a></h3>
        <p> The information exposed by the display capabilities can already be
         accessed via CSS for the most part. The specification also provides
         default values when the user agent does not which to expose the feature
@@ -2099,9 +2119,9 @@ based on the device’s display.</p>
      </section>
     </section>
     <section>
-     <h2 class="heading settled" data-level="5" id="examples"><span class="secno">5. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
+     <h2 class="heading settled" data-level="6" id="examples"><span class="secno">6. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
      <section>
-      <h3 class="heading settled" data-level="5.1" id="example1"><span class="secno">5.1. </span><span class="content">Query recording capabilities with <code class="idl"><a data-link-type="idl" href="#dom-mediacapabilities-encodinginfo" id="ref-for-dom-mediacapabilities-encodinginfo①">encodingInfo()</a></code></span><a class="self-link" href="#example1"></a></h3>
+      <h3 class="heading settled" data-level="6.1" id="example1"><span class="secno">6.1. </span><span class="content">Query recording capabilities with <code class="idl"><a data-link-type="idl" href="#dom-mediacapabilities-encodinginfo" id="ref-for-dom-mediacapabilities-encodinginfo①">encodingInfo()</a></code></span><a class="self-link" href="#example1"></a></h3>
       <div class="note" role="note"> The following example can also be found in e.g. <a href="https://codepen.io/miguelao/pen/bWNwej/left?editors=0010#0"> this codepen</a> with minimal modifications. </div>
       <div class="example" id="example-411065e0">
        <a class="self-link" href="#example-411065e0"></a> 
@@ -2126,6 +2146,27 @@ based on the device’s display.</p>
       <c- p>.</c-><c- k>catch</c-><c- p>((</c->err<c- p>)</c-> <c- p>=></c-> <c- p>{</c->
         console<c- p>.</c->error<c- p>(</c->err<c- p>,</c-> <c- t>' caused encodingInfo to throw'</c-><c- p>);</c->
       <c- p>});</c->
+<c- o>&lt;</c->/script>
+</pre>
+      </div>
+     </section>
+     <section>
+      <h4 class="heading settled" data-level="6.1.1" id="query-display-capabilities"><span class="secno">6.1.1. </span><span class="content">Query display capabilities with displayInfo()</span><a class="self-link" href="#query-display-capabilities"></a></h4>
+      <div class="example" id="example-b7dba649">
+       <a class="self-link" href="#example-b7dba649"></a> 
+<pre class="highlight"><c- o>&lt;</c->script<c- o>></c->
+<c- kr>const</c-> configuration <c- o>=</c-> <c- p>{</c->
+    colorGamut<c- o>:</c-> <c- t>'p3'</c-><c- p>,</c->
+    transferFunction<c- o>:</c-> <c- t>'pq'</c-><c- p>,</c->
+    colorDepth<c- o>:</c-> <c- mi>10</c-><c- p>,</c->
+<c- p>};</c->
+navigatior<c- p>.</c->mediaCapabilities<c- p>.</c->displayInfo<c- p>(</c->configuration<c- p>)</c->
+    <c- p>.</c->then<c- p>(</c->result <c- p>=></c-> <c- p>{</c->
+        console<c- p>.</c->log<c- p>(</c-><c- t>'supported: '</c-> <c- o>+</c-> <c- p>(</c->result<c- p>.</c->supported <c- o>?</c-> <c- t>'YES'</c-> <c- o>:</c-> <c- t>'NO'</c-><c- p>));</c->
+    <c- p>})</c->
+    <c- p>.</c-><c- k>catch</c-><c- p>(</c->err <c- p>=></c-> <c- p>{</c->
+        console<c- p>.</c->error<c- p>(</c->err <c- o>+</c-> <c- t>' caused displayInfo() to throw'</c-><c- p>);</c->
+    <c- p>});</c->
 <c- o>&lt;</c->/script>
 </pre>
       </div>
@@ -2293,7 +2334,8 @@ based on the device’s display.</p>
     </ul>
    <li><a href="#dom-audioconfiguration-channels">channels</a><span>, in §2.1.6</span>
    <li><a href="#check-encrypted-decoding-support">Check Encrypted Decoding Support</a><span>, in §2.3.3</span>
-   <li><a href="#dom-screen-colorgamut">colorGamut</a><span>, in §3.3</span>
+   <li><a href="#dom-displayconfiguration-colordepth">colorDepth</a><span>, in §3.3</span>
+   <li><a href="#dom-displayconfiguration-colorgamut">colorGamut</a><span>, in §3.3</span>
    <li><a href="#mediacapabilitiesinfo-configuration">configuration</a><span>, in §2.2</span>
    <li>
     contentType
@@ -2303,12 +2345,16 @@ based on the device’s display.</p>
     </ul>
    <li><a href="#create-a-mediacapabilitiesdecodinginfo">Create a MediaCapabilitiesDecodingInfo</a><span>, in §2.3.2</span>
    <li><a href="#create-a-mediacapabilitiesinfo">Create a MediaCapabilitiesInfo</a><span>, in §2.3.1</span>
-   <li><a href="#dom-mediacapabilities-decodinginfo">decodingInfo(configuration)</a><span>, in §2.5</span>
+   <li><a href="#dom-mediacapabilities-decodinginfo">decodingInfo(configuration)</a><span>, in §4</span>
+   <li><a href="#dictdef-displaycapabilitiesinfo">DisplayCapabilitiesInfo</a><span>, in §3.4</span>
+   <li><a href="#dictdef-displayconfiguration">DisplayConfiguration</a><span>, in §3.3</span>
+   <li><a href="#dom-mediacapabilities-displayinfo">displayInfo(configuration)</a><span>, in §4</span>
    <li><a href="#dom-mediacapabilitieskeysystemconfiguration-distinctiveidentifier">distinctiveIdentifier</a><span>, in §2.1.7</span>
-   <li><a href="#dom-mediacapabilities-encodinginfo">encodingInfo(configuration)</a><span>, in §2.5</span>
+   <li><a href="#dom-mediacapabilities-encodinginfo">encodingInfo(configuration)</a><span>, in §4</span>
    <li><a href="#dom-mediadecodingtype-file">file</a><span>, in §2.1.2</span>
    <li><a href="#dom-videoconfiguration-framerate">framerate</a><span>, in §2.1.5</span>
    <li><a href="#dom-videoconfiguration-height">height</a><span>, in §2.1.5</span>
+   <li><a href="#dom-transferfunction-hlg">hlg</a><span>, in §3.2</span>
    <li><a href="#dom-mediacapabilitieskeysystemconfiguration-initdatatype">initDataType</a><span>, in §2.1.7</span>
    <li><a href="#dom-mediacapabilitieskeysystemconfiguration-keysystem">keySystem</a><span>, in §2.1.7</span>
    <li>
@@ -2318,10 +2364,7 @@ based on the device’s display.</p>
      <li><a href="#dom-mediacapabilitiesdecodinginfo-keysystemaccess">dict-member for MediaCapabilitiesDecodingInfo</a><span>, in §2.2</span>
     </ul>
    <li><a href="#dom-mediadecodingconfiguration-keysystemconfiguration">keySystemConfiguration</a><span>, in §2.1.1</span>
-   <li><a href="#dom-screen-luminance">luminance</a><span>, in §3.3</span>
-   <li><a href="#dom-screenluminance-max">max</a><span>, in §3.1</span>
-   <li><a href="#dom-screenluminance-maxaverage">maxAverage</a><span>, in §3.1</span>
-   <li><a href="#mediacapabilities">MediaCapabilities</a><span>, in §2.5</span>
+   <li><a href="#mediacapabilities">MediaCapabilities</a><span>, in §4</span>
    <li>
     mediaCapabilities
     <ul>
@@ -2337,9 +2380,7 @@ based on the device’s display.</p>
    <li><a href="#dictdef-mediaencodingconfiguration">MediaEncodingConfiguration</a><span>, in §2.1.1</span>
    <li><a href="#enumdef-mediaencodingtype">MediaEncodingType</a><span>, in §2.1.3</span>
    <li><a href="#dom-mediadecodingtype-media-source">media-source</a><span>, in §2.1.2</span>
-   <li><a href="#dom-screenluminance-min">min</a><span>, in §3.1</span>
-   <li><a href="#dom-screen-onchange">onchange</a><span>, in §3.3</span>
-   <li><a href="#dom-screencolorgamut-p3">p3</a><span>, in §3.2</span>
+   <li><a href="#dom-screencolorgamut-p3">p3</a><span>, in §3.1</span>
    <li><a href="#dom-mediacapabilitieskeysystemconfiguration-persistentstate">persistentState</a><span>, in §2.1.7</span>
    <li>
     powerEfficient
@@ -2347,11 +2388,11 @@ based on the device’s display.</p>
      <li><a href="#mediacapabilitiesinfo-powerefficient">dfn for MediaCapabilitiesInfo</a><span>, in §2.2</span>
      <li><a href="#dom-mediacapabilitiesinfo-powerefficient">dict-member for MediaCapabilitiesInfo</a><span>, in §2.2</span>
     </ul>
-   <li><a href="#dom-screencolorgamut-rec2020">rec2020</a><span>, in §3.2</span>
+   <li><a href="#dom-transferfunction-pq">pq</a><span>, in §3.2</span>
+   <li><a href="#dom-screencolorgamut-rec2020">rec2020</a><span>, in §3.1</span>
    <li><a href="#dom-mediaencodingtype-record">record</a><span>, in §2.1.3</span>
    <li><a href="#dom-audioconfiguration-samplerate">samplerate</a><span>, in §2.1.6</span>
-   <li><a href="#enumdef-screencolorgamut">ScreenColorGamut</a><span>, in §3.2</span>
-   <li><a href="#screenluminance">ScreenLuminance</a><span>, in §3.1</span>
+   <li><a href="#enumdef-screencolorgamut">ScreenColorGamut</a><span>, in §3.1</span>
    <li><a href="#dom-mediacapabilitieskeysystemconfiguration-sessiontypes">sessionTypes</a><span>, in §2.1.7</span>
    <li>
     smooth
@@ -2359,13 +2400,21 @@ based on the device’s display.</p>
      <li><a href="#mediacapabilitiesinfo-smooth">dfn for MediaCapabilitiesInfo</a><span>, in §2.2</span>
      <li><a href="#dom-mediacapabilitiesinfo-smooth">dict-member for MediaCapabilitiesInfo</a><span>, in §2.2</span>
     </ul>
-   <li><a href="#dom-screencolorgamut-srgb">srgb</a><span>, in §3.2</span>
+   <li>
+    srgb
+    <ul>
+     <li><a href="#dom-screencolorgamut-srgb">enum-value for ScreenColorGamut</a><span>, in §3.1</span>
+     <li><a href="#dom-transferfunction-srgb">enum-value for TransferFunction</a><span>, in §3.2</span>
+    </ul>
    <li>
     supported
     <ul>
      <li><a href="#mediacapabilitiesinfo-supported">dfn for MediaCapabilitiesInfo</a><span>, in §2.2</span>
+     <li><a href="#dom-displaycapabilitiesinfo-supported">dict-member for DisplayCapabilitiesInfo</a><span>, in §3.4</span>
      <li><a href="#dom-mediacapabilitiesinfo-supported">dict-member for MediaCapabilitiesInfo</a><span>, in §2.2</span>
     </ul>
+   <li><a href="#enumdef-transferfunction">TransferFunction</a><span>, in §3.2</span>
+   <li><a href="#dom-displayconfiguration-transferfunction">transferFunction</a><span>, in §3.3</span>
    <li><a href="#dom-mediaencodingtype-transmission">transmission</a><span>, in §2.1.3</span>
    <li>
     type
@@ -2385,19 +2434,6 @@ based on the device’s display.</p>
    <li><a href="#dom-mediacapabilitieskeysystemconfiguration-videorobustness">videoRobustness</a><span>, in §2.1.7</span>
    <li><a href="#dom-videoconfiguration-width">width</a><span>, in §2.1.5</span>
   </ul>
-  <aside class="dfn-panel" data-for="term-for-screen">
-   <a href="https://drafts.csswg.org/cssom-view/#screen">https://drafts.csswg.org/cssom-view/#screen</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-screen">3.2. Screen Color Gamut</a>
-    <li><a href="#ref-for-screen①">3.3. Screen extension</a> <a href="#ref-for-screen②">(2)</a> <a href="#ref-for-screen③">(3)</a> <a href="#ref-for-screen④">(4)</a> <a href="#ref-for-screen⑤">(5)</a> <a href="#ref-for-screen⑥">(6)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-eventtarget">
-   <a href="https://dom.spec.whatwg.org/#eventtarget">https://dom.spec.whatwg.org/#eventtarget</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-eventtarget">3.3. Screen extension</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-concept-document">
    <a href="https://www.w3.org/TR/dom/#concept-document">https://www.w3.org/TR/dom/#concept-document</a><b>Referenced in:</b>
    <ul>
@@ -2405,16 +2441,10 @@ based on the device’s display.</p>
           Check Encrypted Decoding Support </a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-event-fire">
-   <a href="https://dom.spec.whatwg.org/#concept-event-fire">https://dom.spec.whatwg.org/#concept-event-fire</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-concept-event-fire">3.3. Screen extension</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-sec-native-error-types-used-in-this-standard-typeerror">
    <a href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror">2.5. Media Capabilities Interface</a> <a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror①">(2)</a>
+    <li><a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror">4. Media Capabilities Interface</a> <a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-mediakeysystemaccess-interface">
@@ -2443,7 +2473,7 @@ based on the device’s display.</p>
    <a href="https://www.w3.org/TR/encrypted-media/#mediakeys-interface">https://www.w3.org/TR/encrypted-media/#mediakeys-interface</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-mediakeys-interface">2.2. Media Capabilities Information</a>
-    <li><a href="#ref-for-mediakeys-interface①">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-mediakeys-interface①">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-mediakeysrequirement">
@@ -2542,12 +2572,6 @@ based on the device’s display.</p>
           Check Encrypted Decoding Support </a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-eventhandler">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-eventhandler">3.3. Screen extension</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-navigator">
    <a href="https://html.spec.whatwg.org/multipage/system-state.html#navigator">https://html.spec.whatwg.org/multipage/system-state.html#navigator</a><b>Referenced in:</b>
    <ul>
@@ -2566,22 +2590,10 @@ based on the device’s display.</p>
     <li><a href="#ref-for-dom-navigator-canplaytype">1. Introduction</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-event-handlers">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-event-handlers">3.3. Screen extension</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-event-handler-event-type">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-event-handler-event-type">3.3. Screen extension</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-in-parallel">
    <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-in-parallel">2.5. Media Capabilities Interface</a> <a href="#ref-for-in-parallel①">(2)</a>
+    <li><a href="#ref-for-in-parallel">4. Media Capabilities Interface</a> <a href="#ref-for-in-parallel①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-rules-for-parsing-floating-point-number-values">
@@ -2593,7 +2605,7 @@ based on the device’s display.</p>
   <aside class="dfn-panel" data-for="term-for-global-object">
    <a href="https://www.w3.org/TR/html52/webappapis.html#global-object">https://www.w3.org/TR/html52/webappapis.html#global-object</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-global-object">2.5. Media Capabilities Interface</a> <a href="#ref-for-global-object①">(2)</a>
+    <li><a href="#ref-for-global-object">4. Media Capabilities Interface</a> <a href="#ref-for-global-object①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-concept-cross-origin">
@@ -2606,7 +2618,7 @@ based on the device’s display.</p>
   <aside class="dfn-panel" data-for="term-for-relevant-settings-object">
    <a href="https://www.w3.org/TR/html52/webappapis.html#relevant-settings-object">https://www.w3.org/TR/html52/webappapis.html#relevant-settings-object</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-relevant-settings-object">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-relevant-settings-object">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-media-source">
@@ -2627,12 +2639,6 @@ based on the device’s display.</p>
     <li><a href="#ref-for-mediarecorder">2.1.3. MediaEncodingType</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-color-gamut">
-   <a href="https://drafts.csswg.org/mediaqueries-4/#color-gamut">https://drafts.csswg.org/mediaqueries-4/#color-gamut</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-color-gamut">3.3. Screen extension</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-valid-mime-type">
    <a href="https://mimesniff.spec.whatwg.org/#valid-mime-type">https://mimesniff.spec.whatwg.org/#valid-mime-type</a><b>Referenced in:</b>
    <ul>
@@ -2642,13 +2648,13 @@ based on the device’s display.</p>
   <aside class="dfn-panel" data-for="term-for-settings-object">
    <a href="https://www.w3.org/TR/secure-contexts/#settings-object">https://www.w3.org/TR/secure-contexts/#settings-object</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-settings-object">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-settings-object">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-DOMException">
    <a href="https://heycam.github.io/webidl/#idl-DOMException">https://heycam.github.io/webidl/#idl-DOMException</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-DOMException">2.5. Media Capabilities Interface</a> <a href="#ref-for-idl-DOMException①">(2)</a>
+    <li><a href="#ref-for-idl-DOMException">4. Media Capabilities Interface</a> <a href="#ref-for-idl-DOMException①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-DOMString">
@@ -2664,13 +2670,13 @@ based on the device’s display.</p>
    <a href="https://heycam.github.io/webidl/#Exposed">https://heycam.github.io/webidl/#Exposed</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-Exposed">2.4. Navigator and WorkerNavigator extension</a> <a href="#ref-for-Exposed①">(2)</a>
-    <li><a href="#ref-for-Exposed②">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-Exposed②">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-NewObject">
    <a href="https://heycam.github.io/webidl/#NewObject">https://heycam.github.io/webidl/#NewObject</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-NewObject">2.5. Media Capabilities Interface</a> <a href="#ref-for-NewObject①">(2)</a>
+    <li><a href="#ref-for-NewObject">4. Media Capabilities Interface</a> <a href="#ref-for-NewObject①">(2)</a> <a href="#ref-for-NewObject②">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-SameObject">
@@ -2683,18 +2689,13 @@ based on the device’s display.</p>
    <a href="https://heycam.github.io/webidl/#idl-boolean">https://heycam.github.io/webidl/#idl-boolean</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-boolean">2.2. Media Capabilities Information</a> <a href="#ref-for-idl-boolean①">(2)</a> <a href="#ref-for-idl-boolean②">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-double">
-   <a href="https://heycam.github.io/webidl/#idl-double">https://heycam.github.io/webidl/#idl-double</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-double">3.1. Screen Luminance</a> <a href="#ref-for-idl-double①">(2)</a> <a href="#ref-for-idl-double②">(3)</a>
+    <li><a href="#ref-for-idl-boolean③">3.4. DisplayCapabilitiesInfo</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-invalidstateerror">
    <a href="https://heycam.github.io/webidl/#invalidstateerror">https://heycam.github.io/webidl/#invalidstateerror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-invalidstateerror">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-invalidstateerror">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-present">
@@ -2705,13 +2706,13 @@ based on the device’s display.</p>
           Create a MediaCapabilitiesDecodingInfo </a>
     <li><a href="#ref-for-dfn-present①⓪">2.3.3. 
           Check Encrypted Decoding Support </a> <a href="#ref-for-dfn-present①①">(2)</a> <a href="#ref-for-dfn-present①②">(3)</a>
-    <li><a href="#ref-for-dfn-present①③">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-dfn-present①③">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-securityerror">
    <a href="https://heycam.github.io/webidl/#securityerror">https://heycam.github.io/webidl/#securityerror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-securityerror">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-securityerror">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
@@ -2728,6 +2729,12 @@ based on the device’s display.</p>
     <li><a href="#ref-for-idl-unsigned-long-long①">2.1.6. AudioConfiguration</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-unsigned-short">
+   <a href="https://heycam.github.io/webidl/#idl-unsigned-short">https://heycam.github.io/webidl/#idl-unsigned-short</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-unsigned-short">3.3. DisplayConfiguration</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-interface-definition">
    <a href="https://www.w3.org/TR/webrtc/#interface-definition">https://www.w3.org/TR/webrtc/#interface-definition</a><b>Referenced in:</b>
    <ul>
@@ -2737,22 +2744,15 @@ based on the device’s display.</p>
   <aside class="dfn-panel" data-for="term-for-the-workerglobalscope-common-interface">
    <a href="https://www.w3.org/TR/workers/#the-workerglobalscope-common-interface">https://www.w3.org/TR/workers/#the-workerglobalscope-common-interface</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-the-workerglobalscope-common-interface">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-the-workerglobalscope-common-interface">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
-    <a data-link-type="biblio">[cssom-view-1]</a> defines the following terms:
-    <ul>
-     <li><span class="dfn-paneled" id="term-for-screen" style="color:initial">Screen</span>
-    </ul>
-   <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-eventtarget" style="color:initial">EventTarget</span>
      <li><span class="dfn-paneled" id="term-for-concept-document" style="color:initial">document</span>
-     <li><span class="dfn-paneled" id="term-for-concept-event-fire" style="color:initial">fire an event</span>
     </ul>
    <li>
     <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
@@ -2782,12 +2782,9 @@ based on the device’s display.</p>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-eventhandler" style="color:initial">EventHandler</span>
      <li><span class="dfn-paneled" id="term-for-navigator" style="color:initial">Navigator</span>
      <li><span class="dfn-paneled" id="term-for-workernavigator" style="color:initial">WorkerNavigator</span>
      <li><span class="dfn-paneled" id="term-for-dom-navigator-canplaytype" style="color:initial">canPlayType()</span>
-     <li><span class="dfn-paneled" id="term-for-event-handlers" style="color:initial">event handler</span>
-     <li><span class="dfn-paneled" id="term-for-event-handler-event-type" style="color:initial">event handler event type</span>
      <li><span class="dfn-paneled" id="term-for-in-parallel" style="color:initial">in parallel</span>
      <li><span class="dfn-paneled" id="term-for-rules-for-parsing-floating-point-number-values" style="color:initial">rules for parsing floating-point number values</span>
     </ul>
@@ -2810,11 +2807,6 @@ based on the device’s display.</p>
      <li><span class="dfn-paneled" id="term-for-mediarecorder" style="color:initial">MediaRecorder</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[mediaqueries-4]</a> defines the following terms:
-    <ul>
-     <li><span class="dfn-paneled" id="term-for-color-gamut" style="color:initial">color-gamut</span>
-    </ul>
-   <li>
     <a data-link-type="biblio">[mimesniff]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-valid-mime-type" style="color:initial">valid mime type</span>
@@ -2833,12 +2825,12 @@ based on the device’s display.</p>
      <li><span class="dfn-paneled" id="term-for-NewObject" style="color:initial">NewObject</span>
      <li><span class="dfn-paneled" id="term-for-SameObject" style="color:initial">SameObject</span>
      <li><span class="dfn-paneled" id="term-for-idl-boolean" style="color:initial">boolean</span>
-     <li><span class="dfn-paneled" id="term-for-idl-double" style="color:initial">double</span>
      <li><span class="dfn-paneled" id="term-for-invalidstateerror" style="color:initial">invalidstateerror</span>
      <li><span class="dfn-paneled" id="term-for-dfn-present" style="color:initial">present</span>
      <li><span class="dfn-paneled" id="term-for-securityerror" style="color:initial">securityerror</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-long" style="color:initial">unsigned long</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-long-long" style="color:initial">unsigned long long</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-short" style="color:initial">unsigned short</span>
     </ul>
    <li>
     <a data-link-type="biblio">[webrtc-pc]</a> defines the following terms:
@@ -2854,8 +2846,6 @@ based on the device’s display.</p>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
-   <dt id="biblio-cssom-view-1">[CSSOM-VIEW-1]
-   <dd>Simon Pieters. <a href="https://www.w3.org/TR/cssom-view-1/">CSSOM View Module</a>. 17 March 2016. WD. URL: <a href="https://www.w3.org/TR/cssom-view-1/">https://www.w3.org/TR/cssom-view-1/</a>
    <dt id="biblio-dom">[DOM]
    <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/">DOM Standard</a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
    <dt id="biblio-ecmascript">[ECMASCRIPT]
@@ -2885,12 +2875,20 @@ based on the device’s display.</p>
   <dl>
    <dt id="biblio-battery-status">[BATTERY-STATUS]
    <dd>Anssi Kostiainen; Mounir Lamouri. <a href="https://www.w3.org/TR/battery-status/">Battery Status API</a>. 7 July 2016. CR. URL: <a href="https://www.w3.org/TR/battery-status/">https://www.w3.org/TR/battery-status/</a>
+   <dt id="biblio-bt2100">[BT.2100]
+   <dd><a href="https://www.itu.int/rec/R-REC-BT.2100">Image parameter values for high dynamic range television for use in production and international programme exchange</a>. 2018-07-19. URL: <a href="https://www.itu.int/rec/R-REC-BT.2100">https://www.itu.int/rec/R-REC-BT.2100</a>
+   <dt id="biblio-dci-p3">[DCI-P3]
+   <dd><a href="http://ieeexplore.ieee.org/document/7290729/">SMPTE Recommended Practice - D-Cinema Quality — Reference Projector and Environment</a>. 2011. URL: <a href="http://ieeexplore.ieee.org/document/7290729/">http://ieeexplore.ieee.org/document/7290729/</a>
    <dt id="biblio-media-playback-quality">[MEDIA-PLAYBACK-QUALITY]
    <dd><a href="https://wicg.github.io/media-playback-quality/">Media Playback Quality Specification</a>. CG-DRAFT. URL: <a href="https://wicg.github.io/media-playback-quality/">https://wicg.github.io/media-playback-quality/</a>
    <dt id="biblio-mediastream-recording">[MEDIASTREAM-RECORDING]
    <dd>Miguel Casas-sanchez; James Barnett; Travis Leithead. <a href="https://www.w3.org/TR/mediastream-recording/">MediaStream Recording</a>. 21 June 2017. WD. URL: <a href="https://www.w3.org/TR/mediastream-recording/">https://www.w3.org/TR/mediastream-recording/</a>
+   <dt id="biblio-rec2020">[Rec.2020]
+   <dd><a href="http://www.itu.int/rec/R-REC-BT.2020/en">Recommendation  ITU-R  BT.2020-2:  Parameter values for ultra-high definition television systems for production and international programme exchange </a>. October 2015. URL: <a href="http://www.itu.int/rec/R-REC-BT.2020/en">http://www.itu.int/rec/R-REC-BT.2020/en</a>
    <dt id="biblio-rfc7231">[RFC7231]
    <dd>R. Fielding, Ed.; J. Reschke, Ed.. <a href="https://tools.ietf.org/html/rfc7231">Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</a>. June 2014. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7231">https://tools.ietf.org/html/rfc7231</a>
+   <dt id="biblio-smpte-st-2084">[SMPTE-ST-2084]
+   <dd><a href="https://ieeexplore.ieee.org/document/7291452">High Dynamic Range Electro-Optical Transfer Function of Mastering Reference Displays</a>. 2014. URL: <a href="https://ieeexplore.ieee.org/document/7291452">https://ieeexplore.ieee.org/document/7291452</a>
    <dt id="biblio-srgb">[sRGB]
    <dd><a href="https://webstore.iec.ch/publication/6169">Multimedia systems and equipment - Colour measurement and management - Part 2-1: Colour management - Default RGB colour space - sRGB</a>. URL: <a href="https://webstore.iec.ch/publication/6169">https://webstore.iec.ch/publication/6169</a>
   </dl>
@@ -2946,7 +2944,7 @@ based on the device’s display.</p>
 
 
 <c- b>dictionary</c-> <a href="#dictdef-mediacapabilitiesinfo"><code><c- g>MediaCapabilitiesInfo</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-mediacapabilitiesinfo-supported"><code><c- g>supported</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-mediacapabilitiesinfo-supported"><code><c- g>supported</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-mediacapabilitiesinfo-smooth"><code><c- g>smooth</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-mediacapabilitiesinfo-powerefficient"><code><c- g>powerEfficient</c-></code></a>;
   
@@ -2966,29 +2964,33 @@ based on the device’s display.</p>
   [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject①①"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#mediacapabilities" id="ref-for-mediacapabilities①①"><c- n>MediaCapabilities</c-></a> <a data-readonly data-type="MediaCapabilities" href="#dom-workernavigator-mediacapabilities"><code><c- g>mediaCapabilities</c-></code></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②①"><c- g>Exposed</c-></a>=(<c- n>Window</c->, <c- n>Worker</c->)]
-<c- b>interface</c-> <a href="#mediacapabilities"><code><c- g>MediaCapabilities</c-></code></a> {
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#NewObject" id="ref-for-NewObject②"><c- g>NewObject</c-></a>] <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-mediacapabilitiesdecodinginfo" id="ref-for-dictdef-mediacapabilitiesdecodinginfo②①"><c- n>MediaCapabilitiesDecodingInfo</c-></a>> <a href="#dom-mediacapabilities-decodinginfo"><code><c- g>decodingInfo</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-mediadecodingconfiguration" id="ref-for-dictdef-mediadecodingconfiguration⑦①"><c- n>MediaDecodingConfiguration</c-></a> <a href="#dom-mediacapabilities-decodinginfo-configuration-configuration"><code><c- g>configuration</c-></code></a>);
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#NewObject" id="ref-for-NewObject①①"><c- g>NewObject</c-></a>] <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-mediacapabilitiesinfo" id="ref-for-dictdef-mediacapabilitiesinfo⑥①"><c- n>MediaCapabilitiesInfo</c-></a>> <a href="#dom-mediacapabilities-encodinginfo"><code><c- g>encodingInfo</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-mediaencodingconfiguration" id="ref-for-dictdef-mediaencodingconfiguration④①"><c- n>MediaEncodingConfiguration</c-></a> <a href="#dom-mediacapabilities-encodinginfo-configuration-configuration"><code><c- g>configuration</c-></code></a>);
-};
-
-<c- b>interface</c-> <a href="#screenluminance"><code><c- g>ScreenLuminance</c-></code></a> {
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-double" id="ref-for-idl-double③"><c- b>double</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="double" href="#dom-screenluminance-min" id="ref-for-dom-screenluminance-min①"><c- g>min</c-></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-double" id="ref-for-idl-double①①"><c- b>double</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="double" href="#dom-screenluminance-max" id="ref-for-dom-screenluminance-max②"><c- g>max</c-></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-double" id="ref-for-idl-double②①"><c- b>double</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="double" href="#dom-screenluminance-maxaverage" id="ref-for-dom-screenluminance-maxaverage②"><c- g>maxAverage</c-></a>;
-};
-
 <c- b>enum</c-> <a href="#enumdef-screencolorgamut"><code><c- g>ScreenColorGamut</c-></code></a> {
-  <a class="idl-code" data-link-type="enum-value" href="#dom-screencolorgamut-srgb" id="ref-for-dom-screencolorgamut-srgb④"><c- s>"srgb"</c-></a>,
+  <a class="idl-code" data-link-type="enum-value" href="#dom-screencolorgamut-srgb" id="ref-for-dom-screencolorgamut-srgb②"><c- s>"srgb"</c-></a>,
   <a class="idl-code" data-link-type="enum-value" href="#dom-screencolorgamut-p3" id="ref-for-dom-screencolorgamut-p3②"><c- s>"p3"</c-></a>,
   <a class="idl-code" data-link-type="enum-value" href="#dom-screencolorgamut-rec2020" id="ref-for-dom-screencolorgamut-rec2020①"><c- s>"rec2020"</c-></a>,
 };
 
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://drafts.csswg.org/cssom-view/#screen" id="ref-for-screen②①"><c- g>Screen</c-></a> {
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-screencolorgamut" id="ref-for-enumdef-screencolorgamut②①"><c- n>ScreenColorGamut</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ScreenColorGamut" href="#dom-screen-colorgamut" id="ref-for-dom-screen-colorgamut②"><c- g>colorGamut</c-></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#screenluminance" id="ref-for-screenluminance①①"><c- n>ScreenLuminance</c-></a>? <a class="idl-code" data-link-type="attribute" data-readonly data-type="ScreenLuminance?" href="#dom-screen-luminance" id="ref-for-dom-screen-luminance①"><c- g>luminance</c-></a>;
+<c- b>enum</c-> <a href="#enumdef-transferfunction"><code><c- g>TransferFunction</c-></code></a> {
+    <a class="idl-code" data-link-type="enum-value" href="#dom-transferfunction-srgb" id="ref-for-dom-transferfunction-srgb①"><c- s>"srgb"</c-></a>,
+    <a class="idl-code" data-link-type="enum-value" href="#dom-transferfunction-pq" id="ref-for-dom-transferfunction-pq①"><c- s>"pq"</c-></a>,
+    <a class="idl-code" data-link-type="enum-value" href="#dom-transferfunction-hlg" id="ref-for-dom-transferfunction-hlg①"><c- s>"hlg"</c-></a>,
+};
 
-  <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler①"><c- n>EventHandler</c-></a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-screen-onchange" id="ref-for-dom-screen-onchange①"><c- g>onchange</c-></a>;
+<c- b>dictionary</c-> <a href="#dictdef-displayconfiguration"><code><c- g>DisplayConfiguration</c-></code></a> {
+    <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-screencolorgamut" id="ref-for-enumdef-screencolorgamut②①"><c- n>ScreenColorGamut</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="ScreenColorGamut " href="#dom-displayconfiguration-colorgamut" id="ref-for-dom-displayconfiguration-colorgamut①"><c- g>colorGamut</c-></a>;
+    <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-transferfunction" id="ref-for-enumdef-transferfunction②①"><c- n>TransferFunction</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="TransferFunction " href="#dom-displayconfiguration-transferfunction" id="ref-for-dom-displayconfiguration-transferfunction①"><c- g>transferFunction</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short①"><c- b>unsigned</c-> <c- b>short</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned short " href="#dom-displayconfiguration-colordepth" id="ref-for-dom-displayconfiguration-colordepth③"><c- g>colorDepth</c-></a>;
+};
+
+<c- b>dictionary</c-> <a href="#dictdef-displaycapabilitiesinfo"><code><c- g>DisplayCapabilitiesInfo</c-></code></a> {
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③①"><c- b>boolean</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="boolean " href="#dom-displaycapabilitiesinfo-supported" id="ref-for-dom-displaycapabilitiesinfo-supported②"><c- g>supported</c-></a>;
+};
+
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②①"><c- g>Exposed</c-></a>=(<c- n>Window</c->, <c- n>Worker</c->)]
+<c- b>interface</c-> <a href="#mediacapabilities"><code><c- g>MediaCapabilities</c-></code></a> {
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#NewObject" id="ref-for-NewObject③"><c- g>NewObject</c-></a>] <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-mediacapabilitiesdecodinginfo" id="ref-for-dictdef-mediacapabilitiesdecodinginfo②①"><c- n>MediaCapabilitiesDecodingInfo</c-></a>> <a href="#dom-mediacapabilities-decodinginfo"><code><c- g>decodingInfo</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-mediadecodingconfiguration" id="ref-for-dictdef-mediadecodingconfiguration⑦①"><c- n>MediaDecodingConfiguration</c-></a> <a href="#dom-mediacapabilities-decodinginfo-configuration-configuration"><code><c- g>configuration</c-></code></a>);
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#NewObject" id="ref-for-NewObject①①"><c- g>NewObject</c-></a>] <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-mediacapabilitiesinfo" id="ref-for-dictdef-mediacapabilitiesinfo⑥①"><c- n>MediaCapabilitiesInfo</c-></a>> <a href="#dom-mediacapabilities-encodinginfo"><code><c- g>encodingInfo</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-mediaencodingconfiguration" id="ref-for-dictdef-mediaencodingconfiguration④①"><c- n>MediaEncodingConfiguration</c-></a> <a href="#dom-mediacapabilities-encodinginfo-configuration-configuration"><code><c- g>configuration</c-></code></a>);
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#NewObject" id="ref-for-NewObject②①"><c- g>NewObject</c-></a>] <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-displaycapabilitiesinfo" id="ref-for-dictdef-displaycapabilitiesinfo②①"><c- n>DisplayCapabilitiesInfo</c-></a>> <a href="#dom-mediacapabilities-displayinfo"><code><c- g>displayInfo</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-displayconfiguration" id="ref-for-dictdef-displayconfiguration②①"><c- n>DisplayConfiguration</c-></a> <a href="#dom-mediacapabilities-displayinfo-configuration-configuration"><code><c- g>configuration</c-></code></a>);
 };
 
 </pre>
@@ -2996,7 +2998,6 @@ based on the device’s display.</p>
   <div style="counter-reset:issue">
    <div class="issue"> The <code class="idl"><a data-link-type="idl" href="#dom-audioconfiguration-channels">channels</a></code> needs to be defined as a <code>double</code> (2.1, 4.1, 5.1, ...), an <code>unsigned short</code> (number of channels) or as an <code>enum</code> value. The current
         definition is a placeholder. <a href="#issue-a7738173"> ↵ </a></div>
-   <div class="issue"> Part of this section is 🐵 patching of the CSSOM View Module. <a href="https://github.com/WICG/media-capabilities/issues/4">Issue #4</a> is tracking merging the changes. This partial interface requires the <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view/#screen">Screen</a></code> interface to become an <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a></code>. <a href="#issue-cd50b0fc"> ↵ </a></div>
   </div>
   <aside class="dfn-panel" data-for="dictdef-mediaconfiguration">
    <b><a href="#dictdef-mediaconfiguration">#dictdef-mediaconfiguration</a></b><b>Referenced in:</b>
@@ -3028,7 +3029,7 @@ based on the device’s display.</p>
           Create a MediaCapabilitiesDecodingInfo </a>
     <li><a href="#ref-for-dictdef-mediadecodingconfiguration⑥">2.3.3. 
           Check Encrypted Decoding Support </a>
-    <li><a href="#ref-for-dictdef-mediadecodingconfiguration⑦">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-dictdef-mediadecodingconfiguration⑦">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-mediadecodingconfiguration-keysystemconfiguration">
@@ -3037,7 +3038,7 @@ based on the device’s display.</p>
     <li><a href="#ref-for-dom-mediadecodingconfiguration-keysystemconfiguration">2.1.1. MediaConfiguration</a>
     <li><a href="#ref-for-dom-mediadecodingconfiguration-keysystemconfiguration①">2.3.3. 
           Check Encrypted Decoding Support </a>
-    <li><a href="#ref-for-dom-mediadecodingconfiguration-keysystemconfiguration②">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-dom-mediadecodingconfiguration-keysystemconfiguration②">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-mediaencodingconfiguration">
@@ -3048,20 +3049,20 @@ based on the device’s display.</p>
     <li><a href="#ref-for-dictdef-mediaencodingconfiguration②">2.2. Media Capabilities Information</a>
     <li><a href="#ref-for-dictdef-mediaencodingconfiguration③">2.3.1. 
           Create a MediaCapabilitiesInfo </a>
-    <li><a href="#ref-for-dictdef-mediaencodingconfiguration④">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-dictdef-mediaencodingconfiguration④">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="valid-mediaconfiguration">
    <b><a href="#valid-mediaconfiguration">#valid-mediaconfiguration</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-valid-mediaconfiguration">2.1.1. MediaConfiguration</a>
-    <li><a href="#ref-for-valid-mediaconfiguration①">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-valid-mediaconfiguration①">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="valid-mediadecodingconfiguration">
    <b><a href="#valid-mediadecodingconfiguration">#valid-mediadecodingconfiguration</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-valid-mediadecodingconfiguration">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-valid-mediadecodingconfiguration">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="enumdef-mediadecodingtype">
@@ -3261,7 +3262,7 @@ based on the device’s display.</p>
     <li><a href="#ref-for-dictdef-mediacapabilitiesinfo">2.2. Media Capabilities Information</a> <a href="#ref-for-dictdef-mediacapabilitiesinfo①">(2)</a> <a href="#ref-for-dictdef-mediacapabilitiesinfo②">(3)</a> <a href="#ref-for-dictdef-mediacapabilitiesinfo③">(4)</a>
     <li><a href="#ref-for-dictdef-mediacapabilitiesinfo④">2.3.1. 
           Create a MediaCapabilitiesInfo </a> <a href="#ref-for-dictdef-mediacapabilitiesinfo⑤">(2)</a>
-    <li><a href="#ref-for-dictdef-mediacapabilitiesinfo⑥">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-dictdef-mediacapabilitiesinfo⑥">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-mediacapabilitiesinfo-powerefficient">
@@ -3276,7 +3277,7 @@ based on the device’s display.</p>
     <li><a href="#ref-for-dictdef-mediacapabilitiesdecodinginfo">2.2. Media Capabilities Information</a>
     <li><a href="#ref-for-dictdef-mediacapabilitiesdecodinginfo①">2.3.2. 
           Create a MediaCapabilitiesDecodingInfo </a>
-    <li><a href="#ref-for-dictdef-mediacapabilitiesdecodinginfo②">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-dictdef-mediacapabilitiesdecodinginfo②">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="mediacapabilitiesinfo-configuration">
@@ -3323,13 +3324,13 @@ based on the device’s display.</p>
   <aside class="dfn-panel" data-for="create-a-mediacapabilitiesinfo">
    <b><a href="#create-a-mediacapabilitiesinfo">#create-a-mediacapabilitiesinfo</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-create-a-mediacapabilitiesinfo">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-create-a-mediacapabilitiesinfo">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="create-a-mediacapabilitiesdecodinginfo">
    <b><a href="#create-a-mediacapabilitiesdecodinginfo">#create-a-mediacapabilitiesdecodinginfo</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-create-a-mediacapabilitiesdecodinginfo">2.5. Media Capabilities Interface</a>
+    <li><a href="#ref-for-create-a-mediacapabilitiesdecodinginfo">4. Media Capabilities Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="check-encrypted-decoding-support">
@@ -3337,6 +3338,96 @@ based on the device’s display.</p>
    <ul>
     <li><a href="#ref-for-check-encrypted-decoding-support">2.3.2. 
           Create a MediaCapabilitiesDecodingInfo </a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="enumdef-screencolorgamut">
+   <b><a href="#enumdef-screencolorgamut">#enumdef-screencolorgamut</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-screencolorgamut">3.1. ScreenColorGamut</a> <a href="#ref-for-enumdef-screencolorgamut①">(2)</a>
+    <li><a href="#ref-for-enumdef-screencolorgamut②">3.3. DisplayConfiguration</a> <a href="#ref-for-enumdef-screencolorgamut③">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-screencolorgamut-srgb">
+   <b><a href="#dom-screencolorgamut-srgb">#dom-screencolorgamut-srgb</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-screencolorgamut-srgb">3.1. ScreenColorGamut</a> <a href="#ref-for-dom-screencolorgamut-srgb①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-screencolorgamut-p3">
+   <b><a href="#dom-screencolorgamut-p3">#dom-screencolorgamut-p3</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-screencolorgamut-p3">3.1. ScreenColorGamut</a> <a href="#ref-for-dom-screencolorgamut-p3①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-screencolorgamut-rec2020">
+   <b><a href="#dom-screencolorgamut-rec2020">#dom-screencolorgamut-rec2020</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-screencolorgamut-rec2020">3.1. ScreenColorGamut</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="enumdef-transferfunction">
+   <b><a href="#enumdef-transferfunction">#enumdef-transferfunction</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-transferfunction">3.2. TransferFunction</a> <a href="#ref-for-enumdef-transferfunction①">(2)</a>
+    <li><a href="#ref-for-enumdef-transferfunction②">3.3. DisplayConfiguration</a> <a href="#ref-for-enumdef-transferfunction③">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-transferfunction-srgb">
+   <b><a href="#dom-transferfunction-srgb">#dom-transferfunction-srgb</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-transferfunction-srgb">3.2. TransferFunction</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-transferfunction-pq">
+   <b><a href="#dom-transferfunction-pq">#dom-transferfunction-pq</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-transferfunction-pq">3.2. TransferFunction</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-transferfunction-hlg">
+   <b><a href="#dom-transferfunction-hlg">#dom-transferfunction-hlg</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-transferfunction-hlg">3.2. TransferFunction</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-displayconfiguration">
+   <b><a href="#dictdef-displayconfiguration">#dictdef-displayconfiguration</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-displayconfiguration">3.4. DisplayCapabilitiesInfo</a>
+    <li><a href="#ref-for-dictdef-displayconfiguration①">3.5.1. Create a DisplayCapabilitiesInfo</a>
+    <li><a href="#ref-for-dictdef-displayconfiguration②">4. Media Capabilities Interface</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-displayconfiguration-colorgamut">
+   <b><a href="#dom-displayconfiguration-colorgamut">#dom-displayconfiguration-colorgamut</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-displayconfiguration-colorgamut">3.3. DisplayConfiguration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-displayconfiguration-transferfunction">
+   <b><a href="#dom-displayconfiguration-transferfunction">#dom-displayconfiguration-transferfunction</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-displayconfiguration-transferfunction">3.3. DisplayConfiguration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-displayconfiguration-colordepth">
+   <b><a href="#dom-displayconfiguration-colordepth">#dom-displayconfiguration-colordepth</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-displayconfiguration-colordepth">3.3. DisplayConfiguration</a> <a href="#ref-for-dom-displayconfiguration-colordepth①">(2)</a> <a href="#ref-for-dom-displayconfiguration-colordepth②">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-displaycapabilitiesinfo">
+   <b><a href="#dictdef-displaycapabilitiesinfo">#dictdef-displaycapabilitiesinfo</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-displaycapabilitiesinfo">3.5.1. Create a DisplayCapabilitiesInfo</a> <a href="#ref-for-dictdef-displaycapabilitiesinfo①">(2)</a>
+    <li><a href="#ref-for-dictdef-displaycapabilitiesinfo②">4. Media Capabilities Interface</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-displaycapabilitiesinfo-supported">
+   <b><a href="#dom-displaycapabilitiesinfo-supported">#dom-displaycapabilitiesinfo-supported</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-displaycapabilitiesinfo-supported">3.4. DisplayCapabilitiesInfo</a>
+    <li><a href="#ref-for-dom-displaycapabilitiesinfo-supported①">3.5.1. Create a DisplayCapabilitiesInfo</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="mediacapabilities">
@@ -3348,83 +3439,20 @@ based on the device’s display.</p>
   <aside class="dfn-panel" data-for="dom-mediacapabilities-decodinginfo">
    <b><a href="#dom-mediacapabilities-decodinginfo">#dom-mediacapabilities-decodinginfo</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-mediacapabilities-decodinginfo">2.5. Media Capabilities Interface</a> <a href="#ref-for-dom-mediacapabilities-decodinginfo①">(2)</a>
+    <li><a href="#ref-for-dom-mediacapabilities-decodinginfo">4. Media Capabilities Interface</a> <a href="#ref-for-dom-mediacapabilities-decodinginfo①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-mediacapabilities-encodinginfo">
    <b><a href="#dom-mediacapabilities-encodinginfo">#dom-mediacapabilities-encodinginfo</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-mediacapabilities-encodinginfo">2.5. Media Capabilities Interface</a>
-    <li><a href="#ref-for-dom-mediacapabilities-encodinginfo①">5.1. Query recording capabilities with encodingInfo()</a>
+    <li><a href="#ref-for-dom-mediacapabilities-encodinginfo">4. Media Capabilities Interface</a>
+    <li><a href="#ref-for-dom-mediacapabilities-encodinginfo①">6.1. Query recording capabilities with encodingInfo()</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="screenluminance">
-   <b><a href="#screenluminance">#screenluminance</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="dom-mediacapabilities-displayinfo">
+   <b><a href="#dom-mediacapabilities-displayinfo">#dom-mediacapabilities-displayinfo</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-screenluminance">3.1. Screen Luminance</a>
-    <li><a href="#ref-for-screenluminance①">3.3. Screen extension</a> <a href="#ref-for-screenluminance②">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-screenluminance-min">
-   <b><a href="#dom-screenluminance-min">#dom-screenluminance-min</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-screenluminance-min">3.1. Screen Luminance</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-screenluminance-max">
-   <b><a href="#dom-screenluminance-max">#dom-screenluminance-max</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-screenluminance-max">3.1. Screen Luminance</a> <a href="#ref-for-dom-screenluminance-max①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-screenluminance-maxaverage">
-   <b><a href="#dom-screenluminance-maxaverage">#dom-screenluminance-maxaverage</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-screenluminance-maxaverage">3.1. Screen Luminance</a> <a href="#ref-for-dom-screenluminance-maxaverage①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="enumdef-screencolorgamut">
-   <b><a href="#enumdef-screencolorgamut">#enumdef-screencolorgamut</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-enumdef-screencolorgamut">3.2. Screen Color Gamut</a> <a href="#ref-for-enumdef-screencolorgamut①">(2)</a>
-    <li><a href="#ref-for-enumdef-screencolorgamut②">3.3. Screen extension</a> <a href="#ref-for-enumdef-screencolorgamut③">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-screencolorgamut-srgb">
-   <b><a href="#dom-screencolorgamut-srgb">#dom-screencolorgamut-srgb</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-screencolorgamut-srgb">3.2. Screen Color Gamut</a> <a href="#ref-for-dom-screencolorgamut-srgb①">(2)</a>
-    <li><a href="#ref-for-dom-screencolorgamut-srgb②">3.3. Screen extension</a> <a href="#ref-for-dom-screencolorgamut-srgb③">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-screencolorgamut-p3">
-   <b><a href="#dom-screencolorgamut-p3">#dom-screencolorgamut-p3</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-screencolorgamut-p3">3.2. Screen Color Gamut</a> <a href="#ref-for-dom-screencolorgamut-p3①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-screencolorgamut-rec2020">
-   <b><a href="#dom-screencolorgamut-rec2020">#dom-screencolorgamut-rec2020</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-screencolorgamut-rec2020">3.2. Screen Color Gamut</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-screen-colorgamut">
-   <b><a href="#dom-screen-colorgamut">#dom-screen-colorgamut</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-screen-colorgamut">3.3. Screen extension</a> <a href="#ref-for-dom-screen-colorgamut①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-screen-luminance">
-   <b><a href="#dom-screen-luminance">#dom-screen-luminance</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-screen-luminance">3.3. Screen extension</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-screen-onchange">
-   <b><a href="#dom-screen-onchange">#dom-screen-onchange</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-screen-onchange">3.3. Screen extension</a>
+    <li><a href="#ref-for-dom-mediacapabilities-displayinfo">4. Media Capabilities Interface</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
