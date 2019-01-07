@@ -850,10 +850,10 @@ spec: workers; urlPrefix: https://www.w3.org/TR/workers/#
       };
     </pre>
 
-    The {{ScreenColorGamut}} has the same meaning as the [[!MEDIAQUERIES-4|Media Queries Level 4]] [[MEDIAQUERIES-4#color-gamut|§color-gamut]] media query, and describes the approximate range of color supported by the UA and output device.
+    The {{ScreenColorGamut}} has the same meaning as the [[!MEDIAQUERIES-4|Media Queries Level 4]] [[MEDIAQUERIES-4#color-gamut|§color-gamut]] media query, and describes the approximate range of color renderable by the UA and output device.
 
     <div class='note'>
-      Note: As in [[MEDIAQUERIES-4#color-gamut]], the values returned here are approximate. Display hardware may advertise support for a certain color gamut yet only render in a smaller range.
+      Note: As in [[MEDIAQUERIES-4#color-gamut]], the values returned here are approximate. Display hardware may advertise support for a certain color gamut yet only render in a smaller range. UAs SHOULD only advertise support for a given {{ScreenColorGamut}} if they are capable of rendering colors outside the range of the next smaller {{ScreenColorGamut}}.
     </div>
 
     The {{ScreenColorGamut}} values are:
