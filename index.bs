@@ -107,6 +107,20 @@ spec: workers; urlPrefix: https://www.w3.org/TR/workers/#
         "title": "Media Playback Quality Specification",
         "status": "CG-DRAFT",
         "publisher": "WICG"
+    },
+    "SMPTE-ST-2084": {
+        "href": "https://ieeexplore.ieee.org/document/7291452",
+        "title": "High Dynamic Range Electro-Optical Transfer Function of Mastering Reference Displays",
+        "publisher": "SMPTE",
+        "date": "2014",
+        "id": "SMPTE-ST-2084"
+        },
+    "BT.2100": {
+        "href": "https://www.itu.int/rec/R-REC-BT.2100",
+        "title": "Image parameter values for high dynamic range television for use in production and international programme exchange",
+        "publisher": "ITU",
+        "date": "2018-07-19",
+        "id": "BT.2100"
     }
 }
 </pre>
@@ -817,14 +831,112 @@ spec: workers; urlPrefix: https://www.w3.org/TR/workers/#
     </pre>
   </section>
 
+<section>
+  <h2 id='display-capabilities'>Display Capabilities</h2>
+
+  <p class='advisement'>
+    This section is still Work In Progress and has no shipping implementation.
+    Please look into it in details before implementing it.
+  </p>
+
   <section>
-    <h3 id='media-capabilities-interface'>Media Capabilities Interface</h3>
+    ## ScreenColorGamut ## {#screen-color-gamut}
+
+    <pre class='idl'>
+      enum ScreenColorGamut {
+        "srgb",
+        "p3",
+        "rec2020",
+      };
+    </pre>
+
+    The {{ScreenColorGamut}} has the same meaning as the [[!MEDIAQUERIES-4|Media Queries Level 4]] [[MEDIAQUERIES-4#color-gamut|§color-gamut]] media query, and describes the approximate range of color supported by the UA and output device.
+
+    <div class='note'>
+      Note: As in [[MEDIAQUERIES-4#color-gamut]], the values returned here are approximate. Display hardware may advertise support for a certain color gamut yet only render in a smaller range.
+    </div>
+
+    The {{ScreenColorGamut}} values are:
+    * <dfn for='ScreenColorGamut' enum-value>srgb</dfn>, representing the [[sRGB]] color gamut.
+    * <dfn for='ScreenColorGamut' enum-value>p3</dfn>, representing the [[DCI-P3]] color gamut. This color gamut includes the {{ScreenColorGamut/srgb}} gamut.
+    * <dfn for='ScreenColorGamut' enum-value>rec2020</dfn>, representing the [[Rec.2020]] color gamut. This color gamut includes the {{ScreenColorGamut/p3}} gamut.
+  </section>
+
+  <section>
+    ## TransferFunction ## {#transfer-function}
+
+    <pre class='idl'>
+      enum TransferFunction {
+          "srgb",
+          "pq",
+          "hlg",
+      };
+    </pre>
+
+    The {{TransferFunction}} represents an electro-optical algorithm used to map the source colors in the decoded media into the colors displayed on the output device.
+
+    The {{TransferFunction}} values are:
+    * <dfn enum-value for="TransferFunction">srgb</dfn>, representing the transfer function defined by [[sRGB]].
+    * <dfn enum-value for="TransferFunction">pq</dfn>, representing the "Perceptual Quantizer" transfer function defined by [[SMPTE-ST-2084]].
+    * <dfn enum-value for="TransferFunction">hlg</dfn>, representing the "Hybrid Log Gamma" transfer function defined by [[BT.2100]].
+  </section>
+
+  <section>
+    ## DisplayConfiguration ## {#display-configuration}
+
+    <pre class="idl">
+        dictionary DisplayConfiguration {
+            required ScreenColorGamut colorGamut;
+            required TransferFunction transferFunction;
+            unsigned short colorDepth;
+        };
+    </pre>
+
+    The <dfn dict-member for="DisplayConfiguration">colorGamut</dfn> member represents the {{ScreenColorGamut}} capabilities of the output device.
+
+    The <dfn dict-member for="DisplayConfiguration">transferFunction</dfn> member represents the {{TransferFunction}} used to map media colors into output device colors.
+
+    The <dfn dict-member for="DisplayConfiguration">colorDepth</dfn> represents the number of bits used to represent each color component.
+    <div class="note">Note: For "32-bit RGBA" color values, each of the four components is represented by 8-bits of data, so the {{colorDepth}} would be set to `8`. For HDR content authored as "10-bit color"&mdash;meaning 10-bits per color component&mdash;{{colorDepth}} would be set to `10`.</div>
+
+    ## DisplayCapabilitiesInfo ## {#media-capabilities-display-info}
+
+    <pre class="idl">
+        dictionary DisplayCapabilitiesInfo {
+            boolean supported;
+        };
+    </pre>
+
+    The <dfn dict-member for="DisplayCapabilitiesInfo">supported</dfn> member represents whether a particulation {{DisplayConfiguration}} is supported by the user agent.
+  </section>
+
+  <section>
+    ## Algorithms ## {#displaycapabilities-algorithms}
+
+    ### Create a DisplayCapabilitiesInfo ### {#create-a-displaycapabilitiesinfo}
+
+    Given a {{DisplayConfiguration}}, this algorithm returns a {{DisplayCapabilitiesInfo}}. The following steps are run:
+
+    1. Let *info* be a new {{DisplayCapabilitiesInfo}}.
+    2. If the user agent is able to display media onto the output device with the parameters represented by *configuration*, set *info*'s {{DisplayCapabilitiesInfo/supported}} property to `true`, Otherwise, set it to `false`.
+    3. Return *info*.
+
+    <div class="note">
+        Note: The user agent may take into account properties and capabilities of the user's system, including those of the system's screen. These properties and capabilities may include, but are not limited to, the available luminance of the screen.
+    </div>
+
+  </section>
+</section>
+
+  <section>
+    <h2 id='media-capabilities-interface'>Media Capabilities Interface</h2>
 
     <pre class='idl'>
       [Exposed=(Window, Worker)]
       interface MediaCapabilities {
         [NewObject] Promise&lt;MediaCapabilitiesDecodingInfo&gt; decodingInfo(MediaDecodingConfiguration configuration);
         [NewObject] Promise&lt;MediaCapabilitiesInfo&gt; encodingInfo(MediaEncodingConfiguration configuration);
+        [NewObject] Promise&lt;DisplayCapabilitiesInfo&gt; displayInfo(DisplayConfiguration configuration);
       };
     </pre>
 
@@ -896,148 +1008,10 @@ spec: workers; urlPrefix: https://www.w3.org/TR/workers/#
       </ol>
     </p>
 
-  </section>
-</section>
-
-<section>
-  <h2 id='display-capabilities'>Display Capabilities</h2>
-
-  <p class='advisement'>
-    This section is still Work In Progress and has no shipping implementation.
-    Please look into it in details before implementing it.
-  </p>
-
-  <section>
-    <h3 id='screen-luminance'>Screen Luminance</h3>
-
-    <pre class='idl'>
-      interface ScreenLuminance {
-        readonly attribute double min;
-        readonly attribute double max;
-        readonly attribute double maxAverage;
-      };
-    </pre>
-
-    <p>
-      The {{ScreenLuminance}} object represents the known luminance
-      characteristics of the screen.
-    </p>
-
-    <p>
-      The <dfn for='ScreenLuminance' attribute>min</dfn> attribute MUST return
-      the minimal screen luminance that a pixel of the screen can emit in
-      candela per square metre. The minimal screen luminance is the luminance
-      used when showing the darkest color a pixel on the screen can display.
-    </p>
-
-    <p>
-      The <dfn for='ScreenLuminance' attribute>max</dfn> attribute MUST return
-      the maximal screen luminance that a pixel of the screen can emit in
-      candela per square metre. The maximal screen luminance is the luminance
-      used when showing the whitest color a pixel on the screen can display.
-    </p>
-
-    <p>
-      The <dfn for='ScreenLuminance' attribute>maxAverage</dfn> attribute MUST
-      return the maximal average screen luminance that the screen can emit in
-      candela per square metre. The maximal average screen luminance is the
-      maximal luminance value such as all the pixels of the screen emit the same
-      luminance. The value returned by {{ScreenLuminance/maxAverage}} is
-      expected to be different from {{ScreenLuminance/max}} as screens usually
-      can't apply the maximal screen luminance to the entire panel.
-    </p>
-  </section>
-
-  <section>
-    <h3 id='color-gamut'>Screen Color Gamut</h3>
-
-    <pre class='idl'>
-      enum ScreenColorGamut {
-        "srgb",
-        "p3",
-        "rec2020",
-      };
-    </pre>
-
-    <p>
-      The {{ScreenColorGamut}} represents the color gamut supported by a
-      {{Screen}}, that means the range of color that the screen can display.
-    </p>
-
-    <p>
-      The {{ScreenColorGamut}} values are:
-      <ul>
-        <li>
-          <dfn for='ScreenColorGamut' enum-value>srgb</dfn>, it represents the
-          [[sRGB]] color gamut.
-        </li>
-        <li>
-          <dfn for='ScreenColorGamut' enum-value>p3</dfn>, it represents the DCI
-          P3 Color Space color gamut. This color gamut includes the
-          {{ScreenColorGamut/srgb}} gamut.
-        </li>
-        <li>
-          <dfn for='ScreenColorGamut' enum-value>rec2020</dfn>, it represents
-          the ITU-R Recommendation BT.2020 color gamut. This color gamut
-          includes the {{ScreenColorGamut/p3}} gamut.
-        </li>
-    </p>
-  </section>
-
-  <section>
-    <h3 id='screen-extension'>Screen extension</h3>
-
-    <p class='issue'>
-      Part of this section is 🐵 patching of the CSSOM View Module. <a
-      href='https://github.com/WICG/media-capabilities/issues/4'>Issue #4</a>
-      is tracking merging the changes. This partial interface requires the
-      {{Screen}} interface to become an {{EventTarget}}.
-    </p>
-
-    <pre class='idl'>
-      partial interface Screen {
-        readonly attribute ScreenColorGamut colorGamut;
-        readonly attribute ScreenLuminance? luminance;
-
-        attribute EventHandler onchange;
-      };
-    </pre>
-
-    <p>
-      The <dfn for='Screen' attribute>colorGamut</dfn> attribute SHOULD return
-      the {{ScreenColorGamut}} approximately supported by the screen. In other
-      words, the screen does not need to fully support the given color gamut but
-      needs to be close enough. If the user agent does not know the color gamut
-      supported by the screen, if the supported color gamut is lower than
-      {{ScreenColorGamut/srgb}}, or if the user agent does not want to expose
-      this information for privacy consideration, it SHOULD return
-      {{ScreenColorGamut/srgb}} as a default value. The value returned by
-      {{Screen/colorGamut}} MUST match the value returned by the {{color-gamut}}
-      CSS media query.
-    </p>
-
-    <p>
-      The <dfn for='Screen' attribute>luminance</dfn> attribute SHOULD return
-      a {{ScreenLuminance}} object that will expose the luminance
-      characteristics of the screen. If the user agent has no access to the
-      luminance characteristics of the screen, it MUST return <code>null</code>.
-      The user agent MAY also return <code>null</code> if it does not want to
-      expose the luminance information for privacy reasons.
-    </p>
-
-    <p>
-      The <dfn for='Screen' attribute>onchange</dfn> attribute is an <a>event
-      handler</a> whose corresponding <a>event handler event type</a> is
-      <code>change</code>.
-    </p>
-
-    <p>
-      Whenever the user agent is aware that the state of the {{Screen}}
-      object has changed, that is if one the value exposed on the {{Screen}}
-      object or in an object exposed on the {{Screen}} object, it MUST
-      queue a task to <a>fire an event</a> named <code>change</code> on
-      {{Screen}}.
-    </p>
+    The {{displayInfo()}} method MUST run the following steps:
+    1. Let *p* be a new Promise.
+    2. [[HTML#in-parallel|In parallel]], run the [[#create-a-displaycapabilitiesinfo|Create a DisplayCapabilitiesInfo]] algorithm with *configuration* and resolve *p* with the result.
+    3. Return *p*.
   </section>
 </section>
 
@@ -1131,5 +1105,29 @@ spec: workers; urlPrefix: https://www.w3.org/TR/workers/#
           &lt;/script>
         </pre>
       </div>
+  </section>
+
+  <section>
+    ### Query display capabilities with displayInfo() ### {#query-display-capabilities}
+
+      <div class="example" highlight="javascript">
+        <pre>
+          &lt;script>
+          const configuration = {
+              colorGamut: 'p3',
+              transferFunction: 'pq',
+              colorDepth: 10,
+          };
+          navigatior.mediaCapabilities.displayInfo(configuration)
+              .then(result => {
+                  console.log('supported: ' + (result.supported ? 'YES' : 'NO'));
+              })
+              .catch(err => {
+                  console.error(err + ' caused displayInfo() to throw');
+              });
+          &lt;/script>
+        </pre>
+      </div>
+
   </section>
 </section>
